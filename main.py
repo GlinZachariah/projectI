@@ -90,8 +90,8 @@ def make_csv(newval,cnt,subject_code):
     
 
 if __name__ == '__main__':
-    # path = input('Enter filename : (result_RET.pdf)')
-    path="result_RET.pdf"
+    path = input('Enter filename : (result_RET.pdf)')
+    # path="result_RET.pdf"
     # order= input('Enter order of courses')
     # input the last end date to split the document
     dat="08/10/2018"
