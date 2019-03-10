@@ -3,7 +3,8 @@ from django.conf import settings
 from django.core.files.storage import FileSystemStorage
 from django.http import HttpResponse
 # Create your views here.
-import pandas
+import pandas as pd
+import numpy as np
 import os
 import result_main
 import csv
@@ -83,4 +84,18 @@ def download_file(request,subject_code='None'):
     return render(request, 'list_dir.html', {
         'files': filenames,
         'subcode' : subject_code
+    })
+
+def display(request,filename):
+    syspath =os.path.dirname(os.path.realpath(__file__))
+    syspath = syspath.replace('\\', '/')
+    path=syspath+"/../media/output/"
+    url =path+filename
+    df =pd.read_csv(url)
+    df =df.replace(np.nan, df.replace([np.nan], ['-']))
+    colnames =list(df.columns.values)
+    df=df.iloc[:, :-1]
+    return render(request, 'viewtable.html', {
+        'colnames':colnames,
+        'dataframe': df
     })

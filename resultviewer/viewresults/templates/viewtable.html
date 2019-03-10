@@ -1,12 +1,10 @@
-{% comment %} <link rel=stylesheet type=text/css href="{{ url_for('static', filename='style.css') }}"> {% endcomment %}
-{% comment %} {% load static %}
-<link rel=stylesheet type=text/css href="{% static "base.css" %}"> {% endcomment %}
+{% comment %} <div>{{dataframe}}</div> {% endcomment %}
 <style>
 table.blueTable {
   font-family: Tahoma, Geneva, sans-serif;
   border: 2px solid #1C6EA4;
   background-color: #EEEEEE;
-  width: 65%;
+  width: 85%;
   text-align: center;
   border-collapse: collapse;
 }
@@ -43,12 +41,17 @@ table.blueTable tfoot {
 }
 </style>
 <table class="blueTable">
-<tr><td>File Name</td><td>View</td><td>Download</td></tr>
-{% for file_name,url in files.items %}
+<tr>
+{% for i in colnames %}
+    <td>{{i}}</td>
+{% endfor %}
+</tr>
+{% for index, row in dataframe.iterrows%}
     <tr>
-        <td>{{file_name}}</td>
-        <td><a href="/viewresults/display/{{file_name}}">View</a></td>
-        <td><a href="/viewresults/download/{{file_name}}">Download</a></td>
+    <td>{{index}}</td>
+    {% for i in row.values %}
+            <td>{{i}}</td>
+    {% endfor %}
     </tr>
 {% endfor %}
 </table>
