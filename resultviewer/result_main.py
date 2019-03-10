@@ -24,20 +24,28 @@ def text_extractor(path):
     return finalpage
 			
 def split_courses(pages,dat):
-    simpleText="[Full Time]Course CodeCourse"
+    simplePattern=r" ?\[Full ?Time\] ?Course ?Code ?Course"
     #fix subject order if necessary
-    pre= pages.split(course[0]+simpleText)
-    temp=pre[1].split(course[1]+simpleText)
+    
+    pre=re.split(course[0]+simplePattern ,pages)
+    # pre= pages.split(course[0]+simplePattern)
+    temp=re.split(course[1]+simplePattern ,pre[1])
+    # temp=pre[1].split(course[1]+simplePattern)
     applied = temp[0]
-    temp=temp[1].split(course[2]+simpleText)
+    temp=re.split(course[2]+simplePattern ,temp[1])
+    # temp=temp[1].split(course[2]+simplePattern)
     ec=temp[0]
-    temp=temp[1].split(course[3]+simpleText)
+    temp=re.split(course[3]+simplePattern ,temp[1])
+    # temp=temp[1].split(course[3]+simplePattern)
     cse=temp[0]
-    temp=temp[1].split(course[4]+simpleText)
+    temp=re.split(course[4]+simplePattern ,temp[1])
+    # temp=temp[1].split(course[4]+simplePattern)
     eee=temp[0]
-    temp=temp[1].split(course[5]+simpleText)
+    temp=re.split(course[5]+simplePattern ,temp[1])
+    # temp=temp[1].split(course[5]+simplePattern)
     it=temp[0]
-    temp=temp[1].split(course[6]+simpleText)
+    temp=re.split(course[6]+simplePattern ,temp[1])
+    # temp=temp[1].split(course[6]+simplePattern)
     mech=temp[0]
     temp=temp[1].split(dat)
     civil=temp[0]
@@ -104,7 +112,7 @@ def res_gen(path):
     # path="result_RET.pdf"
     # order= input('Enter order of courses')
     # input the last end date to split the document
-    dat="08/10/2018"
+    dat="28/03/2018"
     # if path == "":
         # path="result_RET.pdf"
     page = text_extractor(path)
