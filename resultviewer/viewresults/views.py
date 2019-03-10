@@ -6,7 +6,9 @@ from django.http import HttpResponse
 import pandas
 import os
 import result_main
-from django.views.generic.list import ListView
+import csv
+from django.utils.encoding import smart_str
+
 
 def index(request):
     return HttpResponse("Hello, world. You're at the viewresults page.")
@@ -57,3 +59,28 @@ def dir_view(request):
     })
 
     # return render(request, 'list_dir.html')
+
+def download_file(request,subject_code='None'):
+    syspath =os.path.dirname(os.path.realpath(__file__))
+    syspath = syspath.replace('\\', '/')
+    path=syspath+"/../media/output/"
+
+    if subject_code !=None:
+        with open(path+subject_code, 'rb') as fh:
+            response = HttpResponse(fh.read(), content_type='text/csv')
+            response['Content-Disposition'] = 'inline; filename=' + subject_code
+            return response
+    class FileObject():
+        name = ''
+        def __init__(self, name):
+            self.name = name
+    files = []
+    filenames={}
+    for filename in os.listdir(path):
+        fileobject = FileObject(name=filename)
+        files.append(fileobject)
+        filenames[filename]= filename
+    return render(request, 'list_dir.html', {
+        'files': filenames,
+        'subcode' : subject_code
+    })
