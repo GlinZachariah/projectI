@@ -26,13 +26,15 @@ def simple_upload(request):
     return render(request, 'simple_upload.html')
 
 def make_result(request):
-    if request.method == 'POST' and request.FILES['myfile']:
+    print(request)
+    if request.method == 'POST' and request.FILES['myfile'] and request.POST['mydate']:
         myfile = request.FILES['myfile']
+        date= request.POST['mydate']
         fs = FileSystemStorage()
         filename = fs.save(myfile.name, myfile)
         uploaded_file_url = fs.url(filename)
         
-        result_main.res_gen(uploaded_file_url)
+        result_main.res_gen(uploaded_file_url,date)
         return render(request, 'simple_upload.html', {
             'uploaded_file_url': uploaded_file_url
         })

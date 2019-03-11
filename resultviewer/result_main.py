@@ -101,18 +101,16 @@ def make_csv(newval,cnt,subject_code):
         
     
 
-def res_gen(path):
+def res_gen(path,dat):
     print(path)
     print("************")
     path=syspath+path
     print(syspath)
-
     print(path)
     # path = input('Enter filename : (result_RET.pdf)')
     # path="result_RET.pdf"
     # order= input('Enter order of courses')
     # input the last end date to split the document
-    dat="28/03/2018"
     # if path == "":
         # path="result_RET.pdf"
     page = text_extractor(path)
