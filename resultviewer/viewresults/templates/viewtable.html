@@ -1,53 +1,18 @@
-{% comment %} <div>{{dataframe}}</div> {% endcomment %}
-<style>
-table.blueTable {
-  font-family: Tahoma, Geneva, sans-serif;
-  border: 2px solid #1C6EA4;
-  background-color: #EEEEEE;
-  width: 85%;
-  text-align: center;
-  border-collapse: collapse;
-}
-table.blueTable td, table.blueTable th {
-  border: 2px solid #353535;
-  padding: 8px 2px;
-}
-table.blueTable tbody td {
-  font-size: 16px;
-}
-table.blueTable tr:nth-child(even) {
-  background: #D0E4F5;
-}
-table.blueTable thead {
-  background: #1C6EA4;
-  background: -moz-linear-gradient(top, #5592bb 0%, #327cad 66%, #1C6EA4 100%);
-  background: -webkit-linear-gradient(top, #5592bb 0%, #327cad 66%, #1C6EA4 100%);
-  background: linear-gradient(to bottom, #5592bb 0%, #327cad 66%, #1C6EA4 100%);
-  border-bottom: 2px solid #444444;
-}
-table.blueTable thead th {
-  font-size: 17px;
-  font-weight: bold;
-  color: #FFFFFF;
-  text-align: center;
-  border-left: 2px solid #D0E4F5;
-}
-table.blueTable thead th:first-child {
-  border-left: none;
-}
-
-table.blueTable tfoot {
-  font-weight: bold;
-}
-</style>
-<table class="blueTable">
+{% extends 'base.html' %}
+{% block content %}
+<table class="blueTable" id="myTable">
+<tr>
+{% for i in index %}
+  <th><input type="text" id="myInput{{i}}"  onkeyup="myFunction1({{i}})" placeholder="Search in Column"></th>
+{% endfor %}
+</tr>
 <tr>
 {% for i in colnames %}
-    <td>{{i}}</td>
+    <th>{{i}}</th>
 {% endfor %}
 </tr>
 {% for index, row in dataframe.iterrows%}
-    <tr>
+    <tr class="notfirst">
     <td>{{index}}</td>
     {% for i in row.values %}
             <td>{{i}}</td>
@@ -55,3 +20,54 @@ table.blueTable tfoot {
     </tr>
 {% endfor %}
 </table>
+
+<script>
+function myFunction() {
+  // Declare variables 
+  var input, filter, table, tr, td, i, txtValue;
+  input = document.getElementById("myInput");
+  filter = input.value.toUpperCase();
+  table = document.getElementById("myTable");
+  tr = table.getElementsByTagName("tr");
+
+  // Loop through all table rows, and hide those who don't match the search query
+  for (i = 0; i < tr.length; i++) {
+    td = tr[i].getElementsByTagName("td")[0];
+    if (td) {
+      txtValue = td.textContent || td.innerText;
+      if (txtValue.toUpperCase().indexOf(filter) > -1) {
+        tr[i].style.display = "";
+      } else {
+        tr[i].style.display = "none";
+      }
+    } 
+  }
+}
+
+
+function myFunction1(idx) {
+  // Declare variables 
+  console.log(idx);
+  var input, filter, table, tr, td, i, txtValue;
+  input = document.getElementById("myInput"+idx);
+  filter = input.value.toUpperCase();
+  table = document.getElementById("myTable");
+  tr = table.getElementsByTagName("tr");
+
+  // Loop through all table rows, and hide those who don't match the search query
+  for (i = 0; i < tr.length; i++) {
+    td = tr[i].getElementsByTagName("td")[idx];
+    if (td) {
+      txtValue = td.textContent || td.innerText;
+      if (txtValue.toUpperCase() == filter.toUpperCase()) {
+        tr[i].style.display = "";
+      } else if(filter.toUpperCase()== ""){
+        tr[i].style.display ="";
+      } else {
+        tr[i].style.display = "none";
+      }
+    } 
+  }
+}
+</script>
+{% endblock %}

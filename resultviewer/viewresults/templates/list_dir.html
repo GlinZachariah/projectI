@@ -1,48 +1,6 @@
-{% comment %} <link rel=stylesheet type=text/css href="{{ url_for('static', filename='style.css') }}"> {% endcomment %}
-{% comment %} {% load static %}
-<link rel=stylesheet type=text/css href="{% static "base.css" %}"> {% endcomment %}
-<style>
-table.blueTable {
-  font-family: Tahoma, Geneva, sans-serif;
-  border: 2px solid #1C6EA4;
-  background-color: #EEEEEE;
-  width: 65%;
-  text-align: center;
-  border-collapse: collapse;
-}
-table.blueTable td, table.blueTable th {
-  border: 2px solid #353535;
-  padding: 8px 2px;
-}
-table.blueTable tbody td {
-  font-size: 16px;
-}
-table.blueTable tr:nth-child(even) {
-  background: #D0E4F5;
-}
-table.blueTable thead {
-  background: #1C6EA4;
-  background: -moz-linear-gradient(top, #5592bb 0%, #327cad 66%, #1C6EA4 100%);
-  background: -webkit-linear-gradient(top, #5592bb 0%, #327cad 66%, #1C6EA4 100%);
-  background: linear-gradient(to bottom, #5592bb 0%, #327cad 66%, #1C6EA4 100%);
-  border-bottom: 2px solid #444444;
-}
-table.blueTable thead th {
-  font-size: 17px;
-  font-weight: bold;
-  color: #FFFFFF;
-  text-align: center;
-  border-left: 2px solid #D0E4F5;
-}
-table.blueTable thead th:first-child {
-  border-left: none;
-}
-
-table.blueTable tfoot {
-  font-weight: bold;
-}
-</style>
-<table class="blueTable">
+{% extends 'base.html' %}
+{% block content %}
+<table class="newblueTable">
 <tr><td>File Name</td><td>View</td><td>Download</td></tr>
 {% for file_name,url in files.items %}
     <tr>
@@ -52,3 +10,4 @@ table.blueTable tfoot {
     </tr>
 {% endfor %}
 </table>
+{% endblock %}

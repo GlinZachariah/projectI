@@ -121,7 +121,14 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
+syspath =os.path.dirname(os.path.realpath(__file__))
+syspath = syspath.replace('\\', '/')
+path=syspath+"/static/"
 
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, "static"),
+    path,
+]
 #Defining the media root
 
 MEDIA_URL = '/media/'

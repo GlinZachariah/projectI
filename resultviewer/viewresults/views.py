@@ -94,8 +94,13 @@ def display(request,filename):
     df =pd.read_csv(url)
     df =df.replace(np.nan, df.replace([np.nan], ['-']))
     colnames =list(df.columns.values)
+    count =len(colnames)
+    table_idx =[]
+    for i in range(count):
+        table_idx.append(i)
     df=df.iloc[:, :-1]
     return render(request, 'viewtable.html', {
         'colnames':colnames,
-        'dataframe': df
+        'dataframe': df,
+        'index': table_idx
     })
